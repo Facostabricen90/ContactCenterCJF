@@ -1,0 +1,96 @@
+<section class="bg-gray-50 dark:bg-gray-900 h-screen w-screen">
+  <div
+    class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+  >
+    <a
+      routerLink="/"
+      class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white"
+    >
+      <img class="w-8 h-8 mr-2" src="logo.png" alt="logo" />
+      Autogest
+    </a>
+    <div
+      class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700"
+    >
+      <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+        <h1
+          class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white"
+        >
+          Bienvenido
+        </h1>
+        <form
+          class="space-y-4 md:space-y-6"
+          [formGroup]="loginForm"
+          (ngSubmit)="onSubmit()"
+        >
+          <div>
+            <label
+              for="username"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Nombre de usuario:
+            </label>
+            <input
+              type="username"
+              name="username"
+              id="username"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-300 focus:border-purple-300 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Nombre de usuario"
+              required=""
+              formControlName="username"
+            />
+          </div>
+          <div>
+            <label
+              for="password"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Contraseña
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="••••••••"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-purple-300 focus:border-purple-300 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required=""
+              formControlName="password"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full text-white bg-purple-900 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-purple-500 dark:hover:bg-purple-700 dark:focus:ring-purple-800"
+          >
+            Iniciar sesión
+          </button>
+          @if (hasError()) {
+            <div role="alert" class="alert alert-error animate-pulse">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 shrink-0 stroke-current"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <span>Credenciales invalidas</span>
+          </div>
+          }
+          <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+            No tienes una cuenta aún?
+            <a
+              routerLink="/auth/sign-up"
+              class="font-medium text-purple-300 hover:underline dark:text-purple-500"
+              >Registrate aqui</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
