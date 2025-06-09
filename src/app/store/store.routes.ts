@@ -18,12 +18,8 @@ export const storeRoutes: Routes = [
         canActivate: [authGuard]
       },
       {
-        path: 'object/:idSlug',
+        path: 'object',
         component: ObjectPageComponent,
-      },
-      {
-        path: 'object/:idSlug',
-        component: GroupPageComponent,
       },
       {
         path: '**',
