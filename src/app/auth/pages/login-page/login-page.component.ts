@@ -18,19 +18,26 @@ export class LoginPageComponent {
   isPosting = signal(false);
 
   loginForm = this.fb.nonNullable.group({
-    username: ['', [Validators.required, Validators.email]],
+    username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
   errorMessage: string | null = null;
 
   onSubmit(): void {
+
+    const rawForm = this.loginForm.getRawValue();
+    if (rawForm.password.length < 6) {
+      this.hasError.set(true)
+      this.errorMessage = 'La contraseña debe ser mayor a 6 caracteres'
+    }
+
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
+      // this.hasError.set(true);
       return;
     }
 
-    const rawForm = this.loginForm.getRawValue();
     const loginRequest: LoginRequest = {
       username: rawForm.username,
       password: rawForm.password
@@ -42,10 +49,13 @@ export class LoginPageComponent {
       },
       error: (error) => {
         if (error.status === 401) {
+          this.hasError.set(true);
           this.errorMessage = 'Credenciales incorrectas';
         } else if (error.status === 0) {
+          this.hasError.set(true);
           this.errorMessage = 'No se pudo conectar al servidor';
         } else {
+          this.hasError.set(true);
           this.errorMessage = 'Error desconocido durante el login';
         }
       }
