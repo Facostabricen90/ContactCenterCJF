@@ -1,9 +1,61 @@
-<h1 class="text-3xl font-bold mb-5">Todo el inventario</h1>
+<div class="container mx-auto p-4">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold">Mis Contactos</h1>
+    <a routerLink="/contacts/new" class="btn btn-primary">
+      <i class="fas fa-plus mr-2"></i> Nuevo Contacto
+    </a>
+    <button (click)="logOut()"  class="btn btn-error">
+      <i class="fas fa-plus mr-2"></i>cerrar sesion
+    </button>
+  </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-2 gap-3">
-  <!-- inventori-card -->
-   <product-card />
-   <product-card />
-   <product-card />
-   <product-card />
+  @if (isLoading()) {
+  <div class="flex justify-center my-8">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+  } @else if (error()) {
+  <div class="alert alert-error mb-4">
+    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+    </svg>
+    <span>{{ error() }}</span>
+  </div>
+  } @else {
+  <div class="overflow-x-auto">
+    <table class="table w-full">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (contact of contacts(); track contact.id) {
+        <tr>
+          <td>{{ contact.name }}</td>
+          <td>{{ contact.email }}</td>
+          <td>{{ contact.phone }}</td>
+          <td>
+            <div class="flex space-x-2">
+              <a [routerLink]="['/contacts', contact.id]" class="btn btn-sm btn-info">
+                Editar
+              </a>
+              <button (click)="onDelete(contact.id)" class="btn btn-sm btn-error">
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="4" class="text-center py-4">No tienes contactos registrados</td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  }
 </div>
